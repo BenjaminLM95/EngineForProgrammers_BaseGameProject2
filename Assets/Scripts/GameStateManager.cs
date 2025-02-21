@@ -93,8 +93,7 @@ public class GameStateManager : MonoBehaviour
 
     public void SwitchToGamePlay()
     {
-        ChangeState(GameState.Gameplay_State);
-        Time.timeScale = 1f; 
+        ChangeState(GameState.Gameplay_State);        
     }
     
     public void StartGame() 

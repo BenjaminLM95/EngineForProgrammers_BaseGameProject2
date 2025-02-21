@@ -17,7 +17,7 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        HandlePlayerMovement(); 
+        HandlePlayerMovement();        
     }
 
     private void UpdateMoveVector(Vector2 InputVector)
@@ -33,6 +33,6 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnDisable()
     {
-        Actions.MoveEvent -= UpdateMoveVector; 
+        //Actions.MoveEvent -= UpdateMoveVector; 
     }
 }

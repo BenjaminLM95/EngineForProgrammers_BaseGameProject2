@@ -5,13 +5,15 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     public Rigidbody2D playerRigidbody;
-    private Vector2 moveDirection = Vector2.zero; 
-    public float moveSpeed = 2f; 
+    private Vector2 moveDirection = Vector2.zero;
+    private float moveSpeed;
+    
     
     private void Awake()
     {
         playerRigidbody = this.GetComponent<Rigidbody2D>();
         Actions.MoveEvent += UpdateMoveVector;
+        moveSpeed = 3f;        
         
     }
     // Update is called once per frame
@@ -35,4 +37,5 @@ public class PlayerMovement : MonoBehaviour
     {
         //Actions.MoveEvent -= UpdateMoveVector; 
     }
+    
 }

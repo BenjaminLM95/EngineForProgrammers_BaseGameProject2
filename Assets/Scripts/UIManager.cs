@@ -8,13 +8,14 @@ public class UIManager : MonoBehaviour
 {
     public GameObject MainMenuUI;   
     public GameObject PausedUI;
-    public GameObject InstructionsUI;
+    public GameObject OptionsUI;
     public GameObject playerUI; 
 
     public void EnableMainMenuUI()
     {
         DisableAllUI();
         MainMenuUI.gameObject.SetActive(true);
+        Cursor.visible = true;
 
     }
 
@@ -22,20 +23,21 @@ public class UIManager : MonoBehaviour
     {       
         DisableAllUI() ;
         playerUI.gameObject.SetActive(true);
+        Cursor.visible = false;
 
-    }
-
-    public void EnableInstruction() 
-    {
-        PausedUI.gameObject.SetActive(false);
-        MainMenuUI.gameObject.SetActive(false);
-        InstructionsUI.gameObject.SetActive(true);        
-    }
+    }    
 
     public void EnablePause()
     {
         PausedUI.gameObject.SetActive(true);
+        Cursor.visible = true;
 
+    }
+
+    public void EnableOptions() 
+    {
+        DisableAllUI();
+        OptionsUI.gameObject.SetActive(true);   
     }
 
     public void DisablePause()
@@ -48,7 +50,7 @@ public class UIManager : MonoBehaviour
     {
         PausedUI.gameObject.SetActive(false);        
         MainMenuUI.gameObject.SetActive(false);
-        InstructionsUI.gameObject.SetActive(false); 
+        OptionsUI.gameObject.SetActive(false); 
         playerUI.gameObject.SetActive(false);   
     }
 }

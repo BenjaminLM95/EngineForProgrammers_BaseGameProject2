@@ -12,7 +12,8 @@ public class GameStateManager : MonoBehaviour
         MainMenu_State,   // The game is at the main menu
         Gameplay_State,   // The game is actively being played
         Paused_State,      // The game is paused
-        Instruction_State  // The game shows the instructions
+        Options_State      // The options UI activates 
+        
 
     }
 
@@ -23,10 +24,15 @@ public class GameStateManager : MonoBehaviour
     [SerializeField] private string currentStateDebug;
     [SerializeField] private string lastStateDebug;
 
+    public bool gameActive;
+
+    public GameObject player; 
+
     private void Start()
     {
         // Set the initial state of the game to Main Menu when the game starts
         ChangeState(GameState.MainMenu_State);
+        gameActive = false;
     }
 
     // Method to change the current game state
@@ -50,9 +56,9 @@ public class GameStateManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (currentState.ToString() == "Gameplay_State")
+            if (currentState == GameState.Gameplay_State)
                 ChangeState(GameState.Paused_State);
-            else if (currentState.ToString() == "Paused_State")
+            else if (currentState == GameState.Paused_State)
                 SwitchToGamePlay();
 
         }
@@ -67,11 +73,13 @@ public class GameStateManager : MonoBehaviour
                 // TODO: Add logic for when the game enters the Main Menu (e.g., show UI)
                 _uiManager.EnableMainMenuUI();
                 Time.timeScale = 0f;
+                gameActive = false;
                 break;
 
             case GameState.Gameplay_State:
                 Debug.Log("Switched to Gameplay State");
-                // TODO: Add logic for starting/resuming the game (e.g., enable player movement)               
+                // TODO: Add logic for starting/resuming the game (e.g., enable player movement)
+                gameActive = true; 
                 _uiManager.EnableGamePlay();
                 Time.timeScale = 1f;
                 break;
@@ -83,22 +91,33 @@ public class GameStateManager : MonoBehaviour
                 _uiManager.EnablePause();
                 break;
 
-            case GameState.Instruction_State:
-                Debug.Log("Switched to Instructions");
-                Time.timeScale = 0f;
-                _uiManager.EnableInstruction();
+            case GameState.Options_State:
+                Debug.Log("Switch to Options State");
+                Time.timeScale = 0;
+                _uiManager.EnableOptions(); 
                 break;
+
+            
         }
     }
 
     public void SwitchToGamePlay()
-    {
+    {        
         ChangeState(GameState.Gameplay_State);        
+    }
+
+    public void ResumeGamePlay() 
+    {
+        if (gameActive)
+        {
+            ChangeState(GameState.Gameplay_State);
+        }
     }
     
     public void StartGame() 
     {
-        SceneManager.LoadScene("Level1_AreaA");
+        SceneManager.LoadScene("Level1_AreaA");   
+        setPlayerPosition();
         ChangeState(GameState.Gameplay_State);
     }
 
@@ -106,7 +125,15 @@ public class GameStateManager : MonoBehaviour
     {
         SceneManager.LoadScene("MainMenu");
         ChangeState(GameState.MainMenu_State);
+    } 
+    
+    public void SwitchToOptions() 
+    {
+        ChangeState(GameState.Options_State);
     }
 
-    
+    public void setPlayerPosition() 
+    {
+        player.gameObject.transform.position = new Vector2(0f, 0f); 
+    }
 }

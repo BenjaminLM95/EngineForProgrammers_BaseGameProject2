@@ -9,8 +9,6 @@ public class ChangeScenesTrigger : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        //Debug.Log("Collision");
-
         if (collision.gameObject.CompareTag("Player"))
         {
             GameManager.Instance._levelManagement.LoadSceneWithSpawnPoint(sceneName, spawnPoint);

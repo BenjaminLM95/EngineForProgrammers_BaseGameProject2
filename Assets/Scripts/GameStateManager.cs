@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 public class GameStateManager : MonoBehaviour
 {
     public UIManager _uiManager = new UIManager();
+    public PlayerMovement playerM = new PlayerMovement();
+    public CoinManagement _coinManagement = new CoinManagement(); 
 
     public enum GameState
     {
@@ -58,9 +60,7 @@ public class GameStateManager : MonoBehaviour
         {
             if (currentState == GameState.Gameplay_State)
                 ChangeState(GameState.Paused_State);
-            else if (currentState == GameState.Paused_State)
-                SwitchToGamePlay();
-
+            
         }
     }
 
@@ -119,6 +119,8 @@ public class GameStateManager : MonoBehaviour
         SceneManager.LoadScene("Level1_AreaA");   
         setPlayerPosition();
         ChangeState(GameState.Gameplay_State);
+        playerM.resetScore();
+        _coinManagement.setTheCoins(); 
     }
 
     public void SwitchToMainMenu() 
